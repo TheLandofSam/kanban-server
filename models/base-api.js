@@ -47,7 +47,7 @@ function API(model, schema) {//constructor function...ie it is an object. if you
 
     let model = new schema(req.body)
     model.creatorId = req.session.uid
-    
+
     model.save()
       .then(data => {
         return res.send(handleResponse(action, data))
@@ -75,19 +75,20 @@ function API(model, schema) {//constructor function...ie it is an object. if you
   }
 
   function remove(req, res, next) {
+    //FIXES THE REMOVE DONT MODIFY FOR CASCADE DELETE - JAKE
     var action = actions.remove
     var id = req.params.id || req.query.id || '';
 
     if (!id) {
       return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
     }
-    schema.findById({ _id: id })
-    .then(function (data) {
-      data.remove().then(()=>{
-    // schema.findOneAndRemove({ _id: id }).then(function (data) {
+    // schema.findById({ _id: id })
+    //   .then(function (data) {
+    //     // data.remove().then(()=>{
+    schema.findOneAndRemove({ _id: id }).then(function (data) {
       return res.send(handleResponse(action, data))
     })
-    })
+      // })
       .catch(error => {
         return next(handleResponse(action, null, error))
       })

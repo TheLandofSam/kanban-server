@@ -9,11 +9,12 @@ var schema = new mongoose.Schema({
 	created: { type: Number, default: Date.now() },
 	// Relations
 	boardId: { type: ObjectId, ref: models.board.name, required: true },
-	listId: { type: ObjectId, ref: models.list.name},
-	comments: [{ type: ObjectId, ref: models.comment.name}]
+	creatorId: { type: ObjectId, ref: models.user.name },
+	listId: { type: ObjectId, ref: models.list.name },
+	comments: [{ type: ObjectId, ref: models.comment.name }]
 });
-schema.pre('remove', function (next){
-  Comments.find({taskId: this._id}).remove().exec(next)
+schema.pre('remove', function (next) {
+	Comments.find({ taskId: this._id }).remove().exec(next)
 })
 
 module.exports = mongoose.model(models.task.name, schema);
