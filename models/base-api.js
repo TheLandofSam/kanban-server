@@ -2,8 +2,8 @@ import { actions } from '../config/constants'
 
 export default API
 
-function API(model, schema) {//constructor function...ie it is an object. if you give me a model by name and a schema, I will give you the get, post, put and delete.... 
-  if (model.preventDefaultApi) { return {} }//presentDefaultApi means dont want to use what is below this fx. It tells it to return a new obj.
+function API(model, schema) {
+  if (model.preventDefaultApi) { return {} }
   return {
     get: get,
     post: create,
@@ -20,7 +20,7 @@ function API(model, schema) {//constructor function...ie it is an object. if you
 
     if (id) {
       schema.findById(id)
-        .populate(query)//mongoose, you give me certian parameters and will collecte it...
+        .populate(query)
         .then(data => {
           return res.send(handleResponse(actions.find, data))
         })
@@ -47,7 +47,7 @@ function API(model, schema) {//constructor function...ie it is an object. if you
 
     let model = new schema(req.body)
     model.creatorId = req.session.uid
-
+    
     model.save()
       .then(data => {
         return res.send(handleResponse(action, data))
@@ -75,20 +75,16 @@ function API(model, schema) {//constructor function...ie it is an object. if you
   }
 
   function remove(req, res, next) {
-    //FIXES THE REMOVE DONT MODIFY FOR CASCADE DELETE - JAKE
     var action = actions.remove
     var id = req.params.id || req.query.id || '';
 
     if (!id) {
       return next(handleResponse(action, null, { error: { message: 'Invalid request no id provided' } }))
     }
-    // schema.findById({ _id: id })
-    //   .then(function (data) {
-    //     // data.remove().then(()=>{
+
     schema.findOneAndRemove({ _id: id }).then(function (data) {
       return res.send(handleResponse(action, data))
     })
-      // })
       .catch(error => {
         return next(handleResponse(action, null, error))
       })
