@@ -1,14 +1,15 @@
 // LOCAL DEV VARIABLES
 let env = {
-	NODE_ENV: 'development',
+	NODE_ENV: 'development',///changing this changes everything. devel means it is being built. changes to production when done.
 	PORT: 3000,
 	DBPROTOCOL: 'mongodb',
-	DBUSERNAME: 'student',
-	DBPASSWORD: 'student',
-	DBHOST: 'ds149551.mlab.com:49551',
-	DBNAME: 'kanban-project',
+	DBUSERNAME: 'bananaberry',
+	DBPASSWORD: 'yellowishred',
+	DBHOST: 'ds149431.mlab.com:49431',
+	DBNAME: 'youcankanban',
 	SERVERNAME: 'dev-server'
 }
+
 
 // MAPS env TO ACTUAL ENVIRONMENT
 Object.keys(env).forEach(v => {
