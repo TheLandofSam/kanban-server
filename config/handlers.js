@@ -10,7 +10,7 @@ let defaultErrorHandler = (err, req, res, next) => {
 		error = {
 			ok: false,
 			error: err.message,
-			stack: err
+			stack: err //only get this in devl ie not production
 		}
 	} else {
 		error = {
@@ -22,7 +22,7 @@ let defaultErrorHandler = (err, req, res, next) => {
 }
 
 //Default Urls 
-var whitelist = ['http://localhost:8080', 'http://portal.boisecodeworks.com'];
+var whitelist = ['http://localhost:8080', 'http://portal.boisecodeworks.com', 'https://thelandofsam.github.io'], ;///eventually you will change the portal to your website...
 var corsOptions = {
 	origin: function (origin, callback) {
 		var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
