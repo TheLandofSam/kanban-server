@@ -22,7 +22,7 @@ let defaultErrorHandler = (err, req, res, next) => {
 }
 
 //Default Urls 
-var whitelist = ['http://localhost:8080', 'http://portal.boisecodeworks.com', 'https://thelandofsam.github.io'], ;///eventually you will change the portal to your website...
+var whitelist = ['http://localhost:8080', 'http://portal.boisecodeworks.com', 'https://thelandofsam.github.io'] ;///eventually you will change the portal to your website...
 var corsOptions = {
 	origin: function (origin, callback) {
 		var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
